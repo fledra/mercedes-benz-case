@@ -82,7 +82,7 @@ const price = defineComponentBinds('price');
 const color = defineComponentBinds('color');
 
 const updateCar = handleSubmit(async (values) => {
-  const res = await fetch(`https://64f612f42b07270f705e1a0b.mockapi.io/api/cars/${values.id}`, {
+  const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/cars/${values.id}`, {
     method: 'PUT',
     body: JSON.stringify(values),
     headers: {
@@ -105,7 +105,7 @@ const updateCar = handleSubmit(async (values) => {
 async function fetchCar() {
   loading.value = true;
 
-  const res = await fetch(`https://64f612f42b07270f705e1a0b.mockapi.io/api/cars/${route.params.id}`);
+  const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/cars/${route.params.id}`);
 
   if (!res.ok) {
     toast.error('Encountered an error while loading car details. Try refreshing the page.');

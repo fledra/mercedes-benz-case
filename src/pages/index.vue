@@ -85,7 +85,7 @@ async function loadItems() {
     limit: itemsPerPage.value.toString(),
   });
 
-  const res = await fetch(`https://64f612f42b07270f705e1a0b.mockapi.io/api/cars?${params}`);
+  const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/cars?${params}`);
 
   if (!res.ok) {
     toast.error('Encountered an error while loading cars. Try refreshing the page.');
