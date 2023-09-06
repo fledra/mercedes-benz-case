@@ -1,4 +1,4 @@
-export function formatPrice({ value, locale = 'de-DE', currency = 'EUR' }) {
+export function formatPrice({ value = 0, locale = 'de-DE', currency = 'EUR' }) {
   if (Number.isNaN(Number(value))) return 'Invalid price';
 
   const formatter = new Intl.NumberFormat(locale, {
