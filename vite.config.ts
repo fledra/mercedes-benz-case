@@ -1,6 +1,7 @@
 import { fileURLToPath, URL } from 'node:url';
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
+import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify';
 import Components from 'unplugin-vue-components/vite';
 import AutoImport from 'unplugin-auto-import/vite';
 import VueRouter from 'unplugin-vue-router/vite';
@@ -12,6 +13,11 @@ export default defineConfig({
     host: true,
     port: 1337,
   },
+  resolve: {
+    alias: {
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+    },
+  },
   plugins: [
     VueRouter({
       dts: 'src/types/generated/router.d.ts',
@@ -19,24 +25,33 @@ export default defineConfig({
       extensions: ['.vue'],
       importMode: 'async',
     }),
-    vue(),
+    vue({
+      template: {
+        transformAssetUrls,
+      },
+    }),
+    vuetify({
+      autoImport: true,
+    }),
     Components({
       version: 3,
       directoryAsNamespace: true,
       dts: 'src/types/generated/components.d.ts',
-      dirs: ['src/components'],
-      resolvers: [],
+      dirs: ['src/components', 'src/layouts'],
     }),
     AutoImport({
+      vueTemplate: true,
       dts: 'src/types/generated/auto-imports.d.ts',
       dirs: ['src/stores'],
-      imports: [VueRouterAutoImports, 'vue', 'pinia'],
-      vueTemplate: true,
+      imports: [
+        VueRouterAutoImports,
+        'vue',
+        'pinia',
+        'vee-validate',
+        {
+          'vue-toastification': ['useToast'],
+        },
+      ],
     }),
   ],
-  resolve: {
-    alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url)),
-    },
-  },
 });

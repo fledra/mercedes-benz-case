@@ -17,5 +17,6 @@ module.exports = {
     'prettier/prettier': 'error',
     'import/prefer-default-export': 'off',
     'vue/multi-word-component-names': 'off',
+    'vue/valid-v-slot': 'off',
   },
 };
