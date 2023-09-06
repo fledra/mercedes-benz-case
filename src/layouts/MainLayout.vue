@@ -9,9 +9,18 @@
   </div>
 
   <div class="content">
-    <slot />
+    <div v-if="loading" class="d-flex justify-center">
+      <v-progress-circular class="d-flex mt-16" color="primary" size="64" width="8" indeterminate />
+    </div>
+    <slot v-else />
   </div>
 </template>
+
+<script setup lang="ts">
+defineProps<{
+  loading?: boolean;
+}>();
+</script>
 
 <style scoped>
 .header {
@@ -23,7 +32,7 @@
 
 .content {
   width: 1440px;
-  margin: 0 auto;
+  margin: 0 auto 3rem;
   padding: 0 3rem 3rem;
 }
 
