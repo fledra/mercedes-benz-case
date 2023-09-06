@@ -24,7 +24,6 @@ dist/
 # auto-import defs
 .eslintcache
 .eslintrc-auto-import.json
-src/types/generated
 
 # local env files
 .env*
